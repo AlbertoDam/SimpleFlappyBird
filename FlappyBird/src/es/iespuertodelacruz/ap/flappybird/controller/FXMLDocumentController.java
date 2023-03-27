@@ -4,11 +4,13 @@
  */
 package es.iespuertodelacruz.ap.flappybird.controller;
 
+import es.iespuertodelacruz.ap.flappybird.model.Escenario;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 
 /**
@@ -22,11 +24,21 @@ public class FXMLDocumentController implements Initializable {
     private Pane paneCont;
     @FXML
     private Canvas canvaPanel;
+    @FXML
+    private Button btnStart;
 
+    
+    
+    
+    @FXML
+    public void startGame(){
+        Escenario escenario = new Escenario();
+        escenario.pintarEscena(this.canvaPanel);
+    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        btnStart.setOnAction(event -> startGame());
     }    
     
 }

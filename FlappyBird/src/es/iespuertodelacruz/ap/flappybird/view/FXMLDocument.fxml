@@ -7,7 +7,7 @@
 <Pane fx:id="paneCont" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="574.0" prefWidth="722.0" style="-fx-background-color: aqua;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="es.iespuertodelacruz.ap.flappybird.controller.FXMLDocumentController">
    <children>
       <Canvas fx:id="canvaPanel" height="439.0" layoutX="25.0" layoutY="23.0" width="672.0" />
-      <Button layoutX="43.0" layoutY="487.0" mnemonicParsing="false" text="Start Game" />
+      <Button fx:id="btnStart" layoutX="43.0" layoutY="487.0" mnemonicParsing="false" onAction="#startGame" text="Start Game" />
       <Button layoutX="335.0" layoutY="487.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="&gt;" />
    </children>
 </Pane>
