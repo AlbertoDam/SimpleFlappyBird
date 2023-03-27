@@ -9,5 +9,5 @@ package es.iespuertodelacruz.ap.flappybird.model;
  * @author aperp
  */
 public class Personaje {
-    
+    //
 }
