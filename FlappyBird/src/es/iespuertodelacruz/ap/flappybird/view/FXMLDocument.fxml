@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.Pane?>
 
-<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.iespuertodelacruz.ap.flappybird.FXMLDocumentController">
-    <children>
-        <Button layoutX="126" layoutY="90" text="Click Me!" onAction="#handleButtonAction" fx:id="button" />
-        <Label layoutX="126" layoutY="120" minHeight="16" minWidth="69" fx:id="label" />
-    </children>
-</AnchorPane>
+<Pane fx:id="paneCont" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="574.0" prefWidth="722.0" style="-fx-background-color: aqua;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="es.iespuertodelacruz.ap.flappybird.controller.FXMLDocumentController">
+   <children>
+      <Canvas fx:id="canvaPanel" height="439.0" layoutX="25.0" layoutY="23.0" width="672.0" />
+      <Button layoutX="43.0" layoutY="487.0" mnemonicParsing="false" text="Start Game" />
+      <Button layoutX="335.0" layoutY="487.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="&gt;" />
+   </children>
+</Pane>
