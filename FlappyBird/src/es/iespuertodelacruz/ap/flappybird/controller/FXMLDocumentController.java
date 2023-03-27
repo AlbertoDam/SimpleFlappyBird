@@ -26,19 +26,30 @@ public class FXMLDocumentController implements Initializable {
     private Canvas canvaPanel;
     @FXML
     private Button btnStart;
-
+    @FXML
+    private Button btnPlay;
+    
+    private Escenario escenario;
+    
     
     
     
     @FXML
     public void startGame(){
-        Escenario escenario = new Escenario();
-        escenario.pintarEscena(this.canvaPanel);
+        this.escenario = new Escenario();
+        this.escenario.pintarEscena(this.canvaPanel);
+    }
+    
+    @FXML
+    public void fly(){
+        this.escenario.fly();
+        
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         btnStart.setOnAction(event -> startGame());
+        btnPlay.setOnAction(event -> fly());
     }    
     
 }
