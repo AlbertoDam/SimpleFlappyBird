@@ -17,5 +17,21 @@ public class Tuberia {
         bordeArr = Math.random()*(altura - (altura-(altura/4)) + (altura/4)) ;
         bordeAbj = bordeArr - (altura/4);// revisar porque puede estar mal (y lo hace hacia abajo y no hacia arriba)
     }
+
+    public double getBordeArr() {
+        return bordeArr;
+    }
+
+    public void setBordeArr(double bordeArr) {
+        this.bordeArr = bordeArr;
+    }
+
+    public double getBordeAbj() {
+        return bordeAbj;
+    }
+
+    public void setBordeAbj(double bordeAbj) {
+        this.bordeAbj = bordeAbj;
+    }
     
 }
