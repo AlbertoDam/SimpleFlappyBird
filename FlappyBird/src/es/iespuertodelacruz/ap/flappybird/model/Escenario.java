@@ -63,4 +63,13 @@ public class Escenario {
         this.lienzo.fillOval(circle.getLayoutX(), circle.getLayoutY(), circle.getRadius(), circle.getRadius());
     }
 
+    private double altura;
+    
+    public double getAltura(){
+        return this.altura;
+    }
+    
+    public void setAltura(double altura){
+        this.altura = altura;
+    }
 }

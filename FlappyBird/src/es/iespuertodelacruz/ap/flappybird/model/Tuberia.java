@@ -4,10 +4,18 @@
  */
 package es.iespuertodelacruz.ap.flappybird.model;
 
+
 /**
  *
- * @author aperp
+ * @author angel_luis
  */
 public class Tuberia {
+    double bordeArr;
+    double bordeAbj;
+    
+    public Tuberia(double altura){
+        bordeArr = Math.random()*(altura - (altura-(altura/4)) + (altura/4)) ;
+        bordeAbj = bordeArr - (altura/4);// revisar porque puede estar mal (y lo hace hacia abajo y no hacia arriba)
+    }
     
 }

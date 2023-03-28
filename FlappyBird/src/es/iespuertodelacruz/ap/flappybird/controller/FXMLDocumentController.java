@@ -48,6 +48,7 @@ public class FXMLDocumentController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        escenario.setAltura(canvaPanel.getHeight()); // Pillar la altura para crear las tuberias;
         btnStart.setOnAction(event -> startGame());
         btnPlay.setOnAction(event -> fly());
     }    
