@@ -4,11 +4,12 @@
  */
 package es.iespuertodelacruz.ap.flappybird.model;
 
-import java.util.List;
+import java.util.LinkedList;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 
 /**
  *
@@ -18,20 +19,46 @@ public class Escenario {
 
     private Personaje pajaro;
     private Circle pajaroPintado;
-    private List<Tuberia> tuberia;
-    private GraphicsContext lienzo;
+    private LinkedList<Tuberia> tuberias;
+    private GraphicsContext lienzoPajaros;
+    private GraphicsContext lienzoTuberia;
 
     public void pintarEscena(Canvas panelJuego) {
         pajaro = new Personaje(50, 70, 80);
-        this.lienzo = panelJuego.getGraphicsContext2D();
-
+        this.lienzoPajaros = panelJuego.getGraphicsContext2D();
+        this.lienzoTuberia = panelJuego.getGraphicsContext2D();
+        
         Circle circle = this.pajaro.getCircle();
         circle.setLayoutX(this.pajaro.getCoordenada().getX());
         circle.setLayoutY(this.pajaro.getCoordenada().getY());
 
-        this.lienzo.setFill(circle.getFill()); //pinto un circulo con el color de mi circulo
-        this.lienzo.fillOval(circle.getLayoutX(), circle.getLayoutY(), circle.getRadius(), circle.getRadius()); //establezco la posicion del circulo con las pos de mi circulo
+        this.lienzoPajaros.setFill(circle.getFill()); //pinto un circulo con el color de mi circulo
+        this.lienzoPajaros.fillOval(circle.getLayoutX(), circle.getLayoutY(), circle.getRadius(), circle.getRadius()); //establezco la posicion del circulo con las pos de mi circulo
+        
+        /*
+            Problema con los lienzos;
+        */
+        
+        Tuberia tuberiaA = spawnTube();
+        Rectangle tubo = tuberiaA.getTubo();
+        
+        tubo.setLayoutX(tuberiaA.getPosX());
+        tubo.setLayoutY(tuberiaA.getPosY());
 
+        //this.lienzoTuberia.setFill(tubo.getFill()); 
+        //this.lienzoTuberia.fillRect(tubo.getLayoutX(), tubo.getLayoutY(), tubo.getWidth(), tubo.getHeight());
+        this.lienzoTuberia.setFill(tubo.getFill());
+        this.lienzoTuberia.fillRect(50, 50,500, 500);
+        
+        Tuberia tuberiaB = spawnTube();
+        tubo = tuberiaB.getTubo();
+        
+        tubo.setLayoutX(tuberiaB.getPosX());
+        tubo.setLayoutY(tuberiaB.getPosY());
+
+        this.lienzoTuberia.setFill(tubo.getFill());
+        this.lienzoTuberia.fillRect(tubo.getLayoutX(), tubo.getLayoutY(), tubo.getWidth(), tubo.getHeight());
+    
         AnimationTimer bucleJuego = new AnimationTimer() {
             @Override
             public void handle(long l) {
@@ -39,28 +66,33 @@ public class Escenario {
             }
         };
         bucleJuego.start();
-
     }
 
     private void applyGravity() {
         Circle circle = this.pajaro.getCircle();
+        
+        this.lienzoPajaros.clearRect(circle.getLayoutX(), circle.getLayoutY()-2, this.lienzoPajaros.getCanvas().getWidth(), this.lienzoPajaros.getCanvas().getHeight()); //limpio el lienzo
+        
         circle.setLayoutY(circle.getLayoutY() + 2); // Muevo el personaje hacia abajo en el eje Y
         circle.setLayoutX(circle.getLayoutX() - 0.28); // Muevo el personaje hacia IZQUIERDA en el eje X
         
-        this.lienzo.clearRect(0, 0, this.lienzo.getCanvas().getWidth(), this.lienzo.getCanvas().getHeight()); //limpio el lienzo
-        this.lienzo.setFill(circle.getFill()); // Establezco el color de relleno del círculo
-        this.lienzo.fillOval(circle.getLayoutX(), circle.getLayoutY(), circle.getRadius(), circle.getRadius()); // Pinto el círculo en la nueva posición
+        
+        this.lienzoPajaros.setFill(circle.getFill()); // Establezco el color de relleno del círculo
+        this.lienzoPajaros.fillOval(circle.getLayoutX(), circle.getLayoutY(), circle.getRadius(), circle.getRadius()); // Pinto el círculo en la nueva posición
 
     }
 
     public void fly() {
         Circle circle = this.pajaro.getCircle();
+        
+        this.lienzoPajaros.clearRect(circle.getLayoutX(), circle.getLayoutY()-2, this.lienzoPajaros.getCanvas().getWidth(), this.lienzoPajaros.getCanvas().getHeight()); //limpio el lienzo
+        
         circle.setLayoutY(circle.getLayoutY() - 45); // Muevo el personaje hacia ARRIBA en el eje Y
         circle.setLayoutX(circle.getLayoutX() + 7); // Muevo el personaje hacia DERECHA en el eje X
         
-        this.lienzo.clearRect(0, 0, this.lienzo.getCanvas().getWidth(), this.lienzo.getCanvas().getHeight()); //limpio el lienzo
-        this.lienzo.setFill(circle.getFill()); // Establezco el color de relleno del círculo
-        this.lienzo.fillOval(circle.getLayoutX(), circle.getLayoutY(), circle.getRadius(), circle.getRadius());
+        
+        this.lienzoPajaros.setFill(circle.getFill()); // Establezco el color de relleno del círculo
+        this.lienzoPajaros.fillOval(circle.getLayoutX(), circle.getLayoutY(), circle.getRadius(), circle.getRadius());
     }
 
     private double altura;
@@ -72,4 +104,30 @@ public class Escenario {
     public void setAltura(double altura){
         this.altura = altura;
     }
+    
+    private double ancho;
+    
+    public double getAncho(){
+        return this.ancho;
+    }
+    
+    public void setAncho(double ancho){
+        this.ancho = ancho;
+    }
+    
+    private final double SPACING;
+    
+    public Escenario() {
+        this.SPACING = (ancho/8);
+    }
+ 
+    public Tuberia spawnTube(){
+        Tuberia tuberia = new Tuberia(getAltura(),getAncho());
+        if(tuberias == null){
+            tuberias = new LinkedList();
+        }
+        tuberias.add(tuberia);
+        return tuberia;
+    }
+    
 }

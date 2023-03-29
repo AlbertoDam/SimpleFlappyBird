@@ -38,6 +38,8 @@ public class FXMLDocumentController implements Initializable {
     public void startGame(){
         this.escenario = new Escenario();
         this.escenario.pintarEscena(this.canvaPanel);
+        this.escenario.setAltura(canvaPanel.getHeight());
+        this.escenario.setAncho(canvaPanel.getWidth());
     }
     
     @FXML
@@ -48,7 +50,6 @@ public class FXMLDocumentController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        escenario.setAltura(canvaPanel.getHeight()); // Pillar la altura para crear las tuberias;
         btnStart.setOnAction(event -> startGame());
         btnPlay.setOnAction(event -> fly());
     }    

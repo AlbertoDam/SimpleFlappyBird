@@ -4,34 +4,48 @@
  */
 package es.iespuertodelacruz.ap.flappybird.model;
 
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+
 
 /**
  *
  * @author angel_luis
+ * 
  */
 public class Tuberia {
-    double bordeArr;
-    double bordeAbj;
+    private Rectangle tubo;
+    private Punto pos;
     
-    public Tuberia(double altura){
-        bordeArr = Math.random()*(altura - (altura-(altura/4)) + (altura/4)) ;
-        bordeAbj = bordeArr - (altura/4);// revisar porque puede estar mal (y lo hace hacia abajo y no hacia arriba)
+    public Tuberia(double altura,double ancho){
+        pos = new Punto();
+        pos.setX(ancho);
+        tubo = new Rectangle(40,Math.random()* (altura/3) + 100, Color.GREEN );
+        pos.setY(altura);
     }
 
-    public double getBordeArr() {
-        return bordeArr;
+    public Rectangle getTubo() {
+        return tubo;
     }
 
-    public void setBordeArr(double bordeArr) {
-        this.bordeArr = bordeArr;
+    public void setTubo(Rectangle tubo) {
+        this.tubo = tubo;
     }
 
-    public double getBordeAbj() {
-        return bordeAbj;
+    public double getPosX() {
+        return pos.getX();
     }
 
-    public void setBordeAbj(double bordeAbj) {
-        this.bordeAbj = bordeAbj;
+    public void setPosX(double x) {
+        this.pos.setX(x);
+    }
+    
+    public double getPosY() {
+        return pos.getY();
+    }
+
+    public void setPosY(double y) {
+        this.pos.setY(y);
     }
     
 }
