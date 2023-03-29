@@ -35,30 +35,26 @@ public class Escenario {
         this.lienzoPajaros.setFill(circle.getFill()); //pinto un circulo con el color de mi circulo
         this.lienzoPajaros.fillOval(circle.getLayoutX(), circle.getLayoutY(), circle.getRadius(), circle.getRadius()); //establezco la posicion del circulo con las pos de mi circulo
         
-        /*
-            Problema con los lienzos;
-        */
-        
         Tuberia tuberiaA = spawnTube();
         Rectangle tubo = tuberiaA.getTubo();
         
         tubo.setLayoutX(tuberiaA.getPosX());
         tubo.setLayoutY(tuberiaA.getPosY());
 
-        //this.lienzoTuberia.setFill(tubo.getFill()); 
-        //this.lienzoTuberia.fillRect(tubo.getLayoutX(), tubo.getLayoutY(), tubo.getWidth(), tubo.getHeight());
-        this.lienzoTuberia.setFill(tubo.getFill());
-        this.lienzoTuberia.fillRect(50, 50,500, 500);
+        this.lienzoTuberia.setFill(tubo.getFill()); 
+        this.lienzoTuberia.fillRect(tubo.getLayoutX(), tubo.getLayoutY(), tubo.getWidth(), tubo.getHeight());
         
         Tuberia tuberiaB = spawnTube();
-        tubo = tuberiaB.getTubo();
+        Rectangle segundoTubo = tuberiaB.getTubo();
         
-        tubo.setLayoutX(tuberiaB.getPosX());
-        tubo.setLayoutY(tuberiaB.getPosY());
+        segundoTubo.setLayoutX(tuberiaB.getPosX());
+        segundoTubo.setLayoutY(tuberiaB.getPosY());
 
-        this.lienzoTuberia.setFill(tubo.getFill());
-        this.lienzoTuberia.fillRect(tubo.getLayoutX(), tubo.getLayoutY(), tubo.getWidth(), tubo.getHeight());
+        this.lienzoTuberia.setFill(segundoTubo.getFill());
+        this.lienzoTuberia.fillRect(segundoTubo.getLayoutX(), segundoTubo.getLayoutY(), segundoTubo.getWidth(), segundoTubo.getHeight());
     
+        moveTube();
+        
         AnimationTimer bucleJuego = new AnimationTimer() {
             @Override
             public void handle(long l) {
@@ -128,6 +124,26 @@ public class Escenario {
         }
         tuberias.add(tuberia);
         return tuberia;
+    }
+    
+    public void moveTube(){
+        /*
+            deberia funcionar pero no lo hace y no se porque
+        
+            falta limpiar pero eso luego de que funcione
+        */
+        for (Tuberia tuberia : tuberias) {
+            tuberia.setPosX(tuberia.getPosX()-5);
+            
+            Rectangle tubo = tuberia.getTubo();
+
+            tubo.setLayoutX(tuberia.getPosX());
+            tubo.setLayoutY(tuberia.getPosY());
+
+            this.lienzoTuberia.setFill(tubo.getFill()); 
+            this.lienzoTuberia.fillRect(tubo.getLayoutX(), tubo.getLayoutY(), tubo.getWidth(), tubo.getHeight());
+            
+        }
     }
     
 }
