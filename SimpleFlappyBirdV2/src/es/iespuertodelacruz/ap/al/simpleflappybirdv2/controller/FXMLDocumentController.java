@@ -30,18 +30,18 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TextField txtScore;
     
-    private escenario Escenario;
-    private AnimationT
+//    private escenario Escenario;
+//    private AnimationT
 
     
     public void startGame(){
-        AnimationTimer bucleJuego = new AnimationTimer(){
-            @Override
-            public void handle(long now) {
-               escenario.pintarPajaro();
-               escenario.moverJuego(); //dentro llama a todo
-            }
-        };
+//        AnimationTimer bucleJuego = new AnimationTimer(){
+//            @Override
+//            public void handle(long now) {
+//               escenario.pintarPajaro();
+//               escenario.moverJuego(); //dentro llama a todo
+//            }
+//        };
     }
     
     
