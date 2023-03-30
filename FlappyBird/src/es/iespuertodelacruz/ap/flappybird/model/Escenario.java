@@ -36,29 +36,29 @@ public class Escenario {
         this.lienzoPajaros.fillOval(circle.getLayoutX(), circle.getLayoutY(), circle.getRadius(), circle.getRadius()); //establezco la posicion del circulo con las pos de mi circulo
         
         Tuberia tuberiaA = spawnTube();
-        Rectangle tubo = tuberiaA.getTubo();
+        //Rectangle tubo = tuberiaA.getTubo();
         
-        tubo.setLayoutX(tuberiaA.getPosX());
-        tubo.setLayoutY(tuberiaA.getPosY());
+        //tubo.setLayoutX(tuberiaA.getPosX());
+        //tubo.setLayoutY(tuberiaA.getPosY());
 
-        this.lienzoTuberia.setFill(tubo.getFill()); 
-        this.lienzoTuberia.fillRect(tubo.getLayoutX(), tubo.getLayoutY(), tubo.getWidth(), tubo.getHeight());
+        //this.lienzoTuberia.setFill(tubo.getFill()); 
+        //this.lienzoTuberia.fillRect(tubo.getLayoutX(), tubo.getLayoutY(), tubo.getWidth(), tubo.getHeight());
         
         Tuberia tuberiaB = spawnTube();
-        Rectangle segundoTubo = tuberiaB.getTubo();
+        //Rectangle segundoTubo = tuberiaB.getTubo();
         
-        segundoTubo.setLayoutX(tuberiaB.getPosX());
-        segundoTubo.setLayoutY(tuberiaB.getPosY());
+        //segundoTubo.setLayoutX(tuberiaB.getPosX());
+        //segundoTubo.setLayoutY(tuberiaB.getPosY());
 
-        this.lienzoTuberia.setFill(segundoTubo.getFill());
-        this.lienzoTuberia.fillRect(segundoTubo.getLayoutX(), segundoTubo.getLayoutY(), segundoTubo.getWidth(), segundoTubo.getHeight());
+        //this.lienzoTuberia.setFill(segundoTubo.getFill());
+        //this.lienzoTuberia.fillRect(segundoTubo.getLayoutX(), segundoTubo.getLayoutY(), segundoTubo.getWidth(), segundoTubo.getHeight());
     
         moveTube();
         
         AnimationTimer bucleJuego = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                applyGravity();
+                gameTime();
             }
         };
         bucleJuego.start();
@@ -118,27 +118,33 @@ public class Escenario {
     }
  
     public Tuberia spawnTube(){
-        Tuberia tuberia = new Tuberia(getAltura(),getAncho());
+        //Tuberia tuberia = new Tuberia(getAltura(),getAncho());
         if(tuberias == null){
             tuberias = new LinkedList();
         }
-        tuberias.add(tuberia);
-        return tuberia;
+        //tuberias.add(tuberia);
+        //return tuberia;
+        return null;
+    }
+    
+    public void gameTime(){
+        applyGravity();
+        moveTube();
     }
     
     public void moveTube(){
         for (Tuberia tuberia : tuberias) {
-            tuberia.setPosX(tuberia.getPosX()-5);
+            //tuberia.setPosX(tuberia.getPosX()-5);
             
-            Rectangle tubo = tuberia.getTubo();
+            //Rectangle tubo = tuberia.getTubo();
             
-            tubo.setX(tubo.getX()-5);
+            //tubo.setX(tubo.getX()-5);
 
-            tubo.setLayoutX(tuberia.getPosX());
-            tubo.setLayoutY(tuberia.getPosY());
+            //tubo.setLayoutX(tubo.getX());
+            //tubo.setLayoutY(tubo.getY());
 
-            this.lienzoTuberia.setFill(tubo.getFill()); 
-            this.lienzoTuberia.fillRect(tubo.getLayoutX(), tubo.getLayoutY(), tubo.getWidth(), tubo.getHeight());
+            //this.lienzoTuberia.setFill(tubo.getFill()); 
+            //this.lienzoTuberia.fillRect(tubo.getLayoutX(), tubo.getLayoutY(), tubo.getWidth(), tubo.getHeight());
             
         }
     }
