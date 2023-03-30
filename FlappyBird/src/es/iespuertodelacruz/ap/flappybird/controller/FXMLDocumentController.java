@@ -48,6 +48,8 @@ public class FXMLDocumentController implements Initializable {
         this.escenario = new Escenario();
         this.escenario.pintarEscena(this.canvaPanel);
         this.score = new Scores();    
+        this.txtCliks.setEditable(false);
+        this.txtScore.setEditable(false);
     }
     
     @FXML
