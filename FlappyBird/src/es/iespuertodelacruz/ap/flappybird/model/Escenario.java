@@ -127,15 +127,12 @@ public class Escenario {
     }
     
     public void moveTube(){
-        /*
-            deberia funcionar pero no lo hace y no se porque
-        
-            falta limpiar pero eso luego de que funcione
-        */
         for (Tuberia tuberia : tuberias) {
             tuberia.setPosX(tuberia.getPosX()-5);
             
             Rectangle tubo = tuberia.getTubo();
+            
+            tubo.setX(tubo.getX()-5);
 
             tubo.setLayoutX(tuberia.getPosX());
             tubo.setLayoutY(tuberia.getPosY());
