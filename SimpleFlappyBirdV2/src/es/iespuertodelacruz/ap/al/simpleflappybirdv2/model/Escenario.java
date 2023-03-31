@@ -19,16 +19,49 @@ public class Escenario {
         pajaro = new Personaje();
         tuberias = new LinkedList();
     }
+
+    public LinkedList<Tuberia> getTuberias() {
+        return tuberias;
+    }
     
     public void spawnTube(double alto, double ancho){
-        // izq x = ancho; der x = x + 30;
-        // width 30; altura variable con rnd;
-        // izq y = Math.random()*100+(alto/3); der y = y + 30;
         int width = 30;
-        Tuberia tuberiaSup = new Tuberia(new Punto(ancho,0),new Punto(ancho+width,0),new Punto(ancho, Math.random()*100+(alto/3)),new Punto(ancho+width,Math.random()*100+(alto/3)));
-        //Tuberia tuberiaInf = new Tuberia(new Punto(ancho,alto),new Punto(ancho+width,alto+width),null,null);
+        /*
+            X=ancho,y=0                 X=ancho+width,y=0
         
-        tuberias.add(null);
+        
+            X=ancho,y=rnd(alto/3)       X=ancho+30,y=rnd(alto/3)
+        
+        */
+        double y = Math.random()*100+(alto/3); // calculo altura de 0 a (alto/3)
+        Tuberia tuberiaSup = new Tuberia(
+                new Punto(ancho,0),
+                new Punto(ancho+width,0),
+                new Punto(ancho, y),
+                new Punto(ancho+width,y)
+        );
+        
+        tuberias.add(tuberiaSup);
+        /*
+            X=ancho,y=rnd(alto/3)               X=ancho+width,y=rnd(alto/3)
+        
+        
+            X=ancho,y=alto                      X=ancho+30,y=alto
+        
+        */
+        y = Math.random()*100+(alto/3);// vuelvo a calcular la altura de 0 a (alto/3) para que sea distinto
+        Tuberia tuberiaInf = new Tuberia(
+                new Punto(ancho,y),
+                new Punto(ancho+width,y),
+                new Punto(ancho,alto),
+                new Punto(ancho,alto)
+        );
+        
+        tuberias.add(tuberiaInf);
+    }
+    
+    public void moveTube(){
+        
     }
     
 }
