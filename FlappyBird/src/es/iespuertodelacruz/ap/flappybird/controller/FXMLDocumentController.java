@@ -34,8 +34,6 @@ public class FXMLDocumentController implements Initializable {
     private TextField txtCliks;
     @FXML
     private TextField txtScore;
-    @FXML
-    private TextField txtTime;
     
     private Escenario escenario;
     private Scores score;
