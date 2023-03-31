@@ -11,6 +11,8 @@ import java.util.LinkedList;
  * @author dam
  */
 public class Escenario {
+
+    private LinkedList<Tuberia> tuberias;
     private Personaje pajaro;
     private LinkedList<Tuberia> tuberias;
     private final int radioPers = 20;
@@ -31,7 +33,6 @@ public class Escenario {
         return this.pajaro;
     }
 
- 
 
     public LinkedList<Tuberia> getTuberias() {
         return tuberias;
@@ -62,15 +63,15 @@ public class Escenario {
             X=ancho,y=alto                      X=ancho+30,y=alto
         
         */
-        y = Math.random()*100+(alto/3);// vuelvo a calcular la altura de 0 a (alto/3) para que sea distinto
+        /*y = Math.random()*100+(alto/3);// vuelvo a calcular la altura de 0 a (alto/3) para que sea distinto
         Tuberia tuberiaInf = new Tuberia(
                 new Punto(ancho,y),
                 new Punto(ancho+width,y),
                 new Punto(ancho,alto),
                 new Punto(ancho,alto)
-        );
+        );*/
         
-        tuberias.add(tuberiaInf);
+        //tuberias.add(tuberiaInf);
     }
     
     public void moveTube(){

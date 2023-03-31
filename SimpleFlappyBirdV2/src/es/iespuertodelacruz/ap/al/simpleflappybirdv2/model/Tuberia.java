@@ -15,7 +15,7 @@ public class Tuberia {
     private Punto limSupDer;
     private Punto limSupIzq;
 
-    public Tuberia(Punto limInfIzq, Punto limInfDer, Punto limSupDer, Punto limSupIzq) {
+    public Tuberia(Punto limSupDer , Punto limSupIzq , Punto limInfIzq, Punto limInfDer ) {
         this.limInfIzq = limInfIzq;
         this.limInfDer = limInfDer;
         this.limSupDer = limSupDer;
@@ -58,7 +58,6 @@ public class Tuberia {
         Punto aux = new Punto((-1*valor),0);
         this.limInfIzq.sumar(aux);
         this.limInfDer.sumar(aux);
-
     }
     
 }

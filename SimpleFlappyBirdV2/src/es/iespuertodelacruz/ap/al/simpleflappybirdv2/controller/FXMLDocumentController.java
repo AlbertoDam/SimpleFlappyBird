@@ -8,7 +8,9 @@ import es.iespuertodelacruz.ap.al.simpleflappybirdv2.model.Escenario;
 import es.iespuertodelacruz.ap.al.simpleflappybirdv2.model.Partida;
 import es.iespuertodelacruz.ap.al.simpleflappybirdv2.model.Personaje;
 import es.iespuertodelacruz.ap.al.simpleflappybirdv2.model.Punto;
+import es.iespuertodelacruz.ap.al.simpleflappybirdv2.model.Tuberia;
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.ResourceBundle;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
@@ -73,9 +75,23 @@ public class FXMLDocumentController implements Initializable {
 
         gc.clearRect(posPajaro.getX(), posPajaro.getY(), escenario.getRadioPers(), escenario.getRadioPers());
         gc.setFill(Color.YELLOW);
+
         gc.fillOval(posPajaro.getX(), posPajaro.getY(), escenario.getRadioPers(), escenario.getRadioPers());
 
         escenario.applyGravity();
+        
+        escenario.spawnTube(this.canva.getHeight(), this.canva.getWidth());
+        LinkedList<Tuberia> tuberias = escenario.getTuberias();
+        for (Tuberia tuberia : tuberias) {
+            gc.clearRect(
+                    tuberia.getLimInfIzq().getX(), 
+                    tuberia.getLimSupIzq().getY(), 
+                    50, 
+                    50
+            );
+        }
+        
+        pintarTubo();
     }
 
     @FXML
@@ -99,15 +115,27 @@ public class FXMLDocumentController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         btnStart.setOnAction(event -> startGame());
-
-    }
-
-    public void pintarTube() {
-
+    }    
+    
+    private void pintarTubo(){
+        LinkedList<Tuberia> tuberias = escenario.getTuberias();
+        
+        for (Tuberia tuberia : tuberias) {
+            tuberia.res(5);
+            gc.setFill(Color.GREEN);
+            gc.fillRect(
+                    tuberia.getLimInfIzq().getX(), 
+                    tuberia.getLimSupIzq().getY(), 
+                    50, 
+                    50
+            );
+        }
     }
 
 }
