@@ -4,13 +4,19 @@
  */
 package es.iespuertodelacruz.ap.al.simpleflappybirdv2.controller;
 
+import es.iespuertodelacruz.ap.al.simpleflappybirdv2.model.Escenario;
+import es.iespuertodelacruz.ap.al.simpleflappybirdv2.model.Personaje;
+import es.iespuertodelacruz.ap.al.simpleflappybirdv2.model.Punto;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 
 /**
  * FXML Controller class
@@ -29,20 +35,40 @@ public class FXMLDocumentController implements Initializable {
     private TextField txtCliks;
     @FXML
     private TextField txtScore;
+    @FXML
+    private Canvas canva;
+    @FXML
+    private GraphicsContext gc;
     
-//    private escenario Escenario;
-//    private AnimationT
+    private Escenario escenario ;
+
+    private AnimationTimer miBucle;
+    
+    private final double posXPajaro = 0;
+    private final double posYPajaro = 90.00;
 
     
     public void startGame(){
-//        AnimationTimer bucleJuego = new AnimationTimer(){
-//            @Override
-//            public void handle(long now) {
-//               escenario.pintarPajaro();
-//               escenario.moverJuego(); //dentro llama a todo
-//            }
-//        };
+        this.gc = canva.getGraphicsContext2D();
+        escenario = new Escenario(posXPajaro, posYPajaro);
+        miBucle = new AnimationTimer(){
+            @Override
+            public void handle(long now) {
+               moverJuego();
+            }
+        };
+        miBucle.start();
+        
     }
+    private void moverJuego() {
+
+        Personaje pajaro = escenario.getPajaro();
+        Punto posPajaro = pajaro.getPos();
+        gc.setFill(Color.YELLOW);
+        gc.fillOval(posPajaro.getX(), posPajaro.getY(), 50, 50);
+        
+    }
+    
     
     
     /**

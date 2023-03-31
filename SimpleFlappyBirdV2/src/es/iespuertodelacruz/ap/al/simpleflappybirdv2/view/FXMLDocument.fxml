@@ -5,9 +5,9 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="599.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.iespuertodelacruz.ap.al.simpleflappybirdv2.controller.FXMLDocumentController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="599.0" prefWidth="780.0" style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.iespuertodelacruz.ap.al.simpleflappybirdv2.controller.FXMLDocumentController">
    <children>
-      <Canvas height="440.0" layoutX="15.0" layoutY="44.0" width="741.0" />
+      <Canvas fx:id="canva" height="440.0" layoutX="15.0" layoutY="44.0" width="741.0" />
       <Button fx:id="btnStart" layoutX="39.0" layoutY="525.0" mnemonicParsing="false" onAction="#startGame" text="StartGame" />
       <Button fx:id="btnA" layoutX="646.0" layoutY="525.0" mnemonicParsing="false" text="A" />
       <Button fx:id="btnB" layoutX="704.0" layoutY="538.0" mnemonicParsing="false" text="B" />
