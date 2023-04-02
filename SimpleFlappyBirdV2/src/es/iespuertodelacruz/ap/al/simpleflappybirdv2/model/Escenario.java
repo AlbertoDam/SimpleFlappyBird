@@ -13,13 +13,19 @@ import java.util.LinkedList;
 public class Escenario {
     private Personaje pajaro;
     private LinkedList<Tuberia> tuberias;
+    private final int radioPers = 20;
     
 
         
     public Escenario(double x, double y){
-        pajaro = new Personaje(this, x, y);
+        pajaro = new Personaje(this, radioPers, radioPers);
         tuberias = new LinkedList();
     }
+
+    public int getRadioPers() {
+        return radioPers;
+    }
+    
     
     public Personaje getPajaro(){
         return this.pajaro;
