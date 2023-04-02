@@ -1,0 +1,17 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 2 abr 2023, 16:04:17
+    Author     : aperp
+*/
+
+.button {
+   -fx-font-family: Arial !important;
+   -fx-font-size: 54px !important;
+}
+.pane {
+    -fx-background-color: linear-gradient(from 25px 25px to 100px 100px, #dc143c, #32cd32);
+}
+
