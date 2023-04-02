@@ -55,20 +55,31 @@ public class FXMLDocumentController implements Initializable {
             @Override
             public void handle(long now) {
                moverJuego();
+                   
             }
         };
         miBucle.start();
         
     }
     private void moverJuego() {
-
+        //imprimo el pajaro
+        
         Personaje pajaro = escenario.getPajaro();
         Punto posPajaro = pajaro.getPos();
+        
+        gc.clearRect(posPajaro.getX() -1, posPajaro.getY()-5, 51, 50);
         gc.setFill(Color.YELLOW);
         gc.fillOval(posPajaro.getX(), posPajaro.getY(), 50, 50);
         
+        
+        escenario.applyGravity();  
     }
     
+    
+    private void jump() {
+        escenario.getPajaro().jump();
+
+    }
     
     
     /**
@@ -77,11 +88,14 @@ public class FXMLDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         btnStart.setOnAction(event -> startGame());
+        btnA.setOnAction(event -> jump());
 
     }    
     
     public void pintarTube(){
         
     }
+
+    
     
 }

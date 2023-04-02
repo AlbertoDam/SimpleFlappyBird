@@ -58,8 +58,7 @@ public class Tuberia {
         Punto aux = new Punto((-1*valor),0);
         this.limInfIzq.sumar(aux);
         this.limInfDer.sumar(aux);
-        this.limSupDer.sumar(aux);
-        this.limSupIzq.sumar(aux);
+
     }
     
 }
