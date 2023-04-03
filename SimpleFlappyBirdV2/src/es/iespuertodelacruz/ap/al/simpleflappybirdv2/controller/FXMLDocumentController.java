@@ -17,6 +17,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 /**
@@ -74,6 +75,7 @@ public class FXMLDocumentController implements Initializable {
         gc.clearRect(posPajaro.getX(), posPajaro.getY(), escenario.getRadioPers(), escenario.getRadioPers());
         gc.setFill(Color.YELLOW);
         gc.fillOval(posPajaro.getX(), posPajaro.getY(), escenario.getRadioPers(), escenario.getRadioPers());
+
 
         escenario.applyGravity();
     }
