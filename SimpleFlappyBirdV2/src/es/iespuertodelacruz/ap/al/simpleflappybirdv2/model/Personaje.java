@@ -16,7 +16,12 @@ public class Personaje {
     Color color;
     
     
-    
+    /***
+     * Constructor de personaje 
+     * @param escenario
+     * @param x posición x
+     * @param y posición y
+     */
     Personaje(Escenario escenario, double x, double y){
         this.escenario = escenario;
         this.pos = new Punto(x,y);
