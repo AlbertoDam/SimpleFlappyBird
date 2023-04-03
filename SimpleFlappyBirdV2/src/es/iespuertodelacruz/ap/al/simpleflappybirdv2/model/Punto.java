@@ -30,5 +30,13 @@ public class Punto {
         this.x += punto.getX();
         this.y += punto.getY();
     }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
     
 }
