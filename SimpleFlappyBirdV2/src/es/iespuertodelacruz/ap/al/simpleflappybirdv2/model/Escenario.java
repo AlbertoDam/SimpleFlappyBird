@@ -11,37 +11,41 @@ import java.util.LinkedList;
  * @author dam
  */
 public class Escenario {
-
+    
+    private Partida scores;
     private Personaje pajaro;
     private LinkedList<Tuberia> tuberias;
     private final int radioPers = 20;
 
-    /***
-     * Constructor de escenario,
-     * instancia un nuevo Personaje
+    /**
+     * *
+     * Constructor de escenario, instancia un nuevo Personaje
+     *
      * @param x punto en la x
      * @param y punto en la y
      */
-    public Escenario(double x, double y) {
+    public Escenario(double x, double y, Partida scores) {
         pajaro = new Personaje(this, x, y);
         tuberias = new LinkedList();
+        this.scores = scores;
     }
 
-    /***
+    /**
+     * *
      * @return Radio del personaje;
      */
     public int getRadioPers() {
         return radioPers;
     }
-
+    
     public Personaje getPajaro() {
         return this.pajaro;
     }
-
+    
     public LinkedList<Tuberia> getTuberias() {
         return tuberias;
     }
-
+    
     public void spawnTube(double alto, double ancho) {
         int width = 30;
         /*
@@ -58,7 +62,7 @@ public class Escenario {
                 new Punto(ancho, y),
                 new Punto(ancho + width, y)
         );
-
+        
         tuberias.add(tuberiaSup);
         /*
             X=ancho,y=rnd(alto/3)               X=ancho+width,y=rnd(alto/3)
@@ -74,22 +78,48 @@ public class Escenario {
                 new Punto(ancho, alto),
                 new Punto(ancho, alto)
         );
-
+        
         tuberias.add(tuberiaInf);
     }
-
+    
     public void moveTube() {
-
+        
+    }
+    
+    private boolean isColision() {          //ELIMINAR EL PRIMER IF ESTA PUESTO PORQUE NO HAY TUBERIAS
+        boolean response = false;
+        if (this.tuberias.size() > 0) {
+            if (this.pajaro.pos.getY() + 1 > this.tuberias.get(0).getLimInfIzq().getY()     //tuberia de arriba en pos pares y cero
+                    && this.pajaro.pos.getY() + 1 > this.tuberias.get(1).getLimSupIzq().getY()) {
+                response = true;
+            } else {
+                if (this.scores.getCliks() < 10) {
+                    this.scores.setScore(15);
+                } else {
+                    this.scores.setScore(20);
+                }
+                
+            }
+        }
+        
+        return response;
     }
 
     /**
-     * Método que modifica la posición 
-     * del personaje simulando la gravedad
+     * Método que modifica la posición del personaje simulando la gravedad
+     * siempre y cuando la posición a la que se vaya a mover el pajaro sea mayor
+     * al limite sup de la tuberia
      */
-    public void applyGravity() {
-
-        this.pajaro.pos.setY(this.pajaro.pos.getY() + 1);
-
+    public boolean applyGravity() {
+        boolean response = false;
+        if (!isColision()) {
+            this.pajaro.pos.setY(this.pajaro.pos.getY() + 1);
+            response = true;
+        } else {
+            this.pajaro.pos.setX(this.pajaro.pos.getX() + 1000);
+            this.pajaro.pos.setY(this.pajaro.pos.getY() + 1000);
+        }
+        return response;
     }
-
+    
 }

@@ -60,12 +60,14 @@ public class FXMLDocumentController implements Initializable {
         this.isActive = true;
         this.scores = new Partida();
         this.gc = canva.getGraphicsContext2D();
-        escenario = new Escenario(posXPajaro, posYPajaro);
+        escenario = new Escenario(posXPajaro, posYPajaro, scores);
         miBucle = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                moverJuego();
-
+                boolean moverJuego = moverJuego();
+                if (!moverJuego) {
+                    miBucle.stop();
+                }
             }
         };
         miBucle.start();
@@ -77,7 +79,7 @@ public class FXMLDocumentController implements Initializable {
      * por otro lado llama a la función applyGravity
      * 
      */
-    private void moverJuego() {
+    private boolean moverJuego() {
         Personaje pajaro = escenario.getPajaro();
         Punto posPajaro = pajaro.getPos();
 
@@ -85,7 +87,7 @@ public class FXMLDocumentController implements Initializable {
         gc.setFill(pajaro.getColor());
         gc.fillOval(posPajaro.getX(), posPajaro.getY(), escenario.getRadioPers(), escenario.getRadioPers());
 
-        escenario.applyGravity();
+        return escenario.applyGravity();
     }
 
     /***

@@ -34,7 +34,7 @@ public class Partida {
     }
 
     public void setScore(double score) {
-        this.score = score;
+        this.score += score;
     }
     
 
