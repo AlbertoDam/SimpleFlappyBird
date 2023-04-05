@@ -88,16 +88,16 @@ public class Escenario {
     
     private boolean isColision() {          //ELIMINAR EL PRIMER IF ESTA PUESTO PORQUE NO HAY TUBERIAS
         boolean response = false;
-        if (this.tuberias.size() > 0) {
+        if (!this.tuberias.isEmpty()) {
             if (this.pajaro.pos.getY() + 1 > this.tuberias.get(0).getLimInfIzq().getY()     //tuberia de arriba en pos pares y cero
                     && this.pajaro.pos.getY() + 1 > this.tuberias.get(1).getLimSupIzq().getY()) {
                 response = true;
             } else {
-                if (this.scores.getCliks() < 10) {
-                    this.scores.setScore(15);
-                } else {
-                    this.scores.setScore(20);
-                }
+//                if (this.scores.getCliks() < 10) {
+//                    this.scores.setScore(15);
+//                } else {
+//                    this.scores.setScore(20);
+//                }
                 
             }
         }
@@ -116,7 +116,7 @@ public class Escenario {
             this.pajaro.pos.setY(this.pajaro.pos.getY() + 1);
             response = true;
         } else {
-            this.pajaro.pos.setX(this.pajaro.pos.getX() + 1000);
+            this.pajaro.pos.setX(this.pajaro.pos.getX() + 1000);        //se hace desaparecer el pajaro en caso de colision
             this.pajaro.pos.setY(this.pajaro.pos.getY() + 1000);
         }
         return response;
