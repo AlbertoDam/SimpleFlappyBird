@@ -26,9 +26,8 @@ public class Punto {
         return y;
     }
       
-    public void sumar(Punto punto){
-        this.x += punto.getX();
-        this.y += punto.getY();
+    public void sumar(double valor){
+        this.x -= valor;
     }
 
     public void setX(double x) {
@@ -38,5 +37,12 @@ public class Punto {
     public void setY(double y) {
         this.y = y;
     }
+
+    @Override
+    public String toString() {
+        return "Punto{" + "x=" + x + ", y=" + y + '}';
+    }
+    
+    
     
 }

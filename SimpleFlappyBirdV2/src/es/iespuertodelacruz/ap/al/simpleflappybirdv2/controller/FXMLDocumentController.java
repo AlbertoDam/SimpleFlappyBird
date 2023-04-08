@@ -50,6 +50,9 @@ public class FXMLDocumentController implements Initializable {
 
     private final double posXPajaro = 0;
     private final double posYPajaro = 90.00;
+    
+    int contador;
+    int aux;
 
     @FXML
     public void startGame() {
@@ -78,18 +81,36 @@ public class FXMLDocumentController implements Initializable {
 
         gc.fillOval(posPajaro.getX(), posPajaro.getY(), escenario.getRadioPers(), escenario.getRadioPers());
 
+
         escenario.applyGravity();
-        
-        escenario.spawnTube(this.canva.getHeight(), this.canva.getWidth());
         LinkedList<Tuberia> tuberias = escenario.getTuberias();
-        for (Tuberia tuberia : tuberias) {
-            gc.clearRect(
-                    tuberia.getLimInfIzq().getX(), 
-                    tuberia.getLimSupIzq().getY(), 
-                    50, 
-                    50
-            );
+        if(tuberias==null || contador==45){
+            escenario.spawnTube(this.canva.getHeight(), this.canva.getWidth());
+            contador = 0;
         }
+        
+        contador++;
+        for (Tuberia tuberia : tuberias) {
+            if(aux%2==0){
+                gc.clearRect(
+                        tuberia.getLimInfIzq().getX(), 
+                        0, 
+                        50,
+                        tuberia.getLimSupIzq().getY()
+                );
+            }else{
+                gc.clearRect(
+                        tuberia.getLimInfIzq().getX(), 
+                        tuberia.getLimSupIzq().getY(), 
+                        50,
+                        //tuberia.getLimSupIzq().getY()
+                        this.canva.getHeight()
+                );
+            }
+            aux++;
+        }
+        
+
         
         pintarTubo();
     }
@@ -121,20 +142,37 @@ public class FXMLDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         btnStart.setOnAction(event -> startGame());
+        contador = 0;
+        aux = 0;
     }    
     
     private void pintarTubo(){
         LinkedList<Tuberia> tuberias = escenario.getTuberias();
+        int aux = 0;
+        
+        //gc.fillRect(600,0,60,150);
+        //gc.fillRect(600,300,60,150);
         
         for (Tuberia tuberia : tuberias) {
             tuberia.res(5);
             gc.setFill(Color.GREEN);
-            gc.fillRect(
-                    tuberia.getLimInfIzq().getX(), 
-                    tuberia.getLimSupIzq().getY(), 
-                    50, 
-                    50
-            );
+            if(aux%2==0){
+                gc.fillRect(
+                        tuberia.getLimInfIzq().getX(), 
+                        0, 
+                        50,
+                        tuberia.getLimSupIzq().getY()
+                );
+            }else{
+                gc.fillRect(
+                        tuberia.getLimInfIzq().getX(), 
+                        tuberia.getLimSupIzq().getY(), 
+                        50,
+                        this.canva.getHeight()
+                );
+            }
+            
+            aux++;
         }
     }
 
