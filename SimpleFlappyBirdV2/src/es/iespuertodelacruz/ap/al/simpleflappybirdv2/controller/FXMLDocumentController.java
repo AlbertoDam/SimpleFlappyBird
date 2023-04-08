@@ -180,7 +180,7 @@ public class FXMLDocumentController implements Initializable {
         //gc.fillRect(600,300,60,150);
         
         for (Tuberia tuberia : tuberias) {
-            tuberia.res(5);
+            tuberia.res(4);
             gc.setFill(Color.GREEN);
             if(aux%2==0){
                 gc.fillRect(
