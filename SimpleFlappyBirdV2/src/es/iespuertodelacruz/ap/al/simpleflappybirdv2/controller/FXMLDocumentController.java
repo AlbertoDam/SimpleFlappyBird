@@ -8,7 +8,9 @@ import es.iespuertodelacruz.ap.al.simpleflappybirdv2.model.Escenario;
 import es.iespuertodelacruz.ap.al.simpleflappybirdv2.model.Partida;
 import es.iespuertodelacruz.ap.al.simpleflappybirdv2.model.Personaje;
 import es.iespuertodelacruz.ap.al.simpleflappybirdv2.model.Punto;
+import es.iespuertodelacruz.ap.al.simpleflappybirdv2.model.Tuberia;
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.ResourceBundle;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
@@ -50,6 +52,9 @@ public class FXMLDocumentController implements Initializable {
 
     private final double posXPajaro = 0;
     private final double posYPajaro = 90.00;
+    
+    int contador;
+    int aux;
 
     /***
      * Método que inicia el bucle del juego,
@@ -84,6 +89,41 @@ public class FXMLDocumentController implements Initializable {
         Punto posPajaro = pajaro.getPos();
 
         gc.clearRect(posPajaro.getX(), posPajaro.getY(), escenario.getRadioPers(), escenario.getRadioPers());
+
+
+
+        escenario.applyGravity();
+        LinkedList<Tuberia> tuberias = escenario.getTuberias();
+        if(tuberias==null || contador==45){
+            escenario.spawnTube(this.canva.getHeight(), this.canva.getWidth());
+            contador = 0;
+        }
+        
+        contador++;
+        for (Tuberia tuberia : tuberias) {
+            if(aux%2==0){
+                gc.clearRect(
+                        tuberia.getLimInfIzq().getX(), 
+                        0, 
+                        50,
+                        tuberia.getLimSupIzq().getY()
+                );
+            }else{
+                gc.clearRect(
+                        tuberia.getLimInfIzq().getX(), 
+                        tuberia.getLimSupIzq().getY(), 
+                        50,
+                        //tuberia.getLimSupIzq().getY()
+                        this.canva.getHeight()
+                );
+            }
+            aux++;
+        }
+        
+
+        
+        pintarTubo();
+
         gc.setFill(pajaro.getColor());
         gc.fillOval(posPajaro.getX(), posPajaro.getY(), escenario.getRadioPers(), escenario.getRadioPers());
 
@@ -122,15 +162,44 @@ public class FXMLDocumentController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         btnStart.setOnAction(event -> startGame());
-
-    }
-
-    public void pintarTube() {
-
+        contador = 0;
+        aux = 0;
+    }    
+    
+    private void pintarTubo(){
+        LinkedList<Tuberia> tuberias = escenario.getTuberias();
+        int aux = 0;
+        
+        //gc.fillRect(600,0,60,150);
+        //gc.fillRect(600,300,60,150);
+        
+        for (Tuberia tuberia : tuberias) {
+            tuberia.res(5);
+            gc.setFill(Color.GREEN);
+            if(aux%2==0){
+                gc.fillRect(
+                        tuberia.getLimInfIzq().getX(), 
+                        0, 
+                        50,
+                        tuberia.getLimSupIzq().getY()
+                );
+            }else{
+                gc.fillRect(
+                        tuberia.getLimInfIzq().getX(), 
+                        tuberia.getLimSupIzq().getY(), 
+                        50,
+                        this.canva.getHeight()
+                );
+            }
+            
+            aux++;
+        }
     }
 
     /***
