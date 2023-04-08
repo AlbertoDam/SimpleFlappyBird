@@ -97,6 +97,7 @@ public class FXMLDocumentController implements Initializable {
         if(tuberias==null || contador==45){
             escenario.spawnTube(this.canva.getHeight(), this.canva.getWidth());
             contador = 0;
+
         }
         
         contador++;
@@ -120,7 +121,11 @@ public class FXMLDocumentController implements Initializable {
             aux++;
         }
         
-
+        if(tuberias.size()>=10){
+            tuberias.remove();
+            tuberias.remove();
+            this.scores.updateScore();
+        }
         
         pintarTubo();
 

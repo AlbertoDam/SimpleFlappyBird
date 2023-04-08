@@ -52,7 +52,7 @@ public class Escenario {
             X=ancho,y=0                 X=ancho+width,y=0
         
         
-            X=ancho,y=rnd(alto/3)       X=ancho+30,y=rnd(alto/3)
+            X=ancho,y=rnd()*100+(alto/5)       X=ancho+30,y=rnd()*100+(alto/5)
         */
         
         double y = Math.random()*100+(alto/5); // calculo altura de 0 a (alto/3)
@@ -66,10 +66,10 @@ public class Escenario {
         
         tuberias.add(tuberiaSup);
         /*
-            X=ancho,y= y + radio*2 + 25     X=ancho+width,y= y + radio*2 + 25 
+            X=ancho,y= y + 79     X=ancho+width,y= y + 79 
         
         
-            X=ancho,y=alto                  X=ancho+width,y=alto
+            X=ancho,y=alto        X=ancho+width,y=alto
         
 
         */
@@ -90,25 +90,29 @@ public class Escenario {
     
     public boolean isColision() {
         boolean response = false;
-        int counter = 0;
-        
-        for (Tuberia tuberia : tuberias) {
-            if((this.pajaro.getPos().getX()+this.radioPers)==tuberia.getLimSupIzq().getX()){
-                response = true;
-            }else{
-                if(counter%2==0){
-                    if((this.pajaro.getPos().getY()+this.radioPers)>=tuberia.getLimSupIzq().getY()){
-                        response = true;
-                    }
+
+        if(this.tuberias.size()>=2){
+
+            Tuberia sup = this.tuberias.get(0);
+            Tuberia inf = this.tuberias.get(1);
+
+            if(((this.pajaro.getPos().getX()+this.radioPers)>sup.getLimSupIzq().getX()) 
+                    && 
+                    (this.pajaro.getPos().getX()+this.radioPers)<sup.getLimSupDer().getX()){
+                
+                if((this.pajaro.getPos().getY()+this.radioPers)>=sup.getLimSupIzq().getY()){
+                    response = true;
+
+                }else if((this.pajaro.getPos().getY()+this.radioPers)<=inf.getLimSupIzq().getY()){
+                    response = true;
+
                 }else{
-                    if((this.pajaro.getPos().getY()+this.radioPers)<=tuberia.getLimSupIzq().getY()){
-                        response = true;
-                    }
-                }                
+                    response = false;
+
+                }
             }
-            
-            counter++;
         }
+        
         return response;
     }
 
