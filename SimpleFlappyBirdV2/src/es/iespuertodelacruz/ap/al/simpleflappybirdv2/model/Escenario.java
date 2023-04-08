@@ -12,49 +12,56 @@ import java.util.LinkedList;
  */
 public class Escenario {
 
+    private Partida scores;
     private Personaje pajaro;
     private LinkedList<Tuberia> tuberias;
     private final int radioPers = 20;
-    
 
-        
-    public Escenario(double x, double y){
-        pajaro = new Personaje(this, radioPers, radioPers);
+    /**
+     * *
+     * Constructor de escenario, instancia un nuevo Personaje
+     *
+     * @param x punto en la x
+     * @param y punto en la y
+     */
+    public Escenario(double x, double y, Partida scores) {
+        pajaro = new Personaje(this, x, y);
         tuberias = new LinkedList();
+        this.scores = scores;
     }
 
+    /**
+     * *
+     * @return Radio del personaje;
+     */
     public int getRadioPers() {
         return radioPers;
     }
     
-    
-    public Personaje getPajaro(){
+    public Personaje getPajaro() {
         return this.pajaro;
     }
-
 
     public LinkedList<Tuberia> getTuberias() {
         return tuberias;
     }
     
-    public void spawnTube(double alto, double ancho){
+    public void spawnTube(double alto, double ancho) {
         int width = 30;
         /*
             X=ancho,y=0                 X=ancho+width,y=0
         
         
             X=ancho,y=rnd(alto/3)       X=ancho+30,y=rnd(alto/3)
-        
         */
-        double y = Math.random()*100+(alto/5); // calculo altura de 0 a (alto/3)
         
+        double y = Math.random()*100+(alto/5); // calculo altura de 0 a (alto/3)
         Tuberia tuberiaSup = new Tuberia(
                 new Punto(ancho, y),
                 new Punto(ancho+width,y),
                 new Punto(ancho,0),
                 new Punto(ancho+width,0)
-                
-                
+
         );
         
         tuberias.add(tuberiaSup);
@@ -64,6 +71,7 @@ public class Escenario {
         
             X=ancho,y=alto                  X=ancho+width,y=alto
         
+
         */
         y += 79;
         Tuberia tuberiaInf = new Tuberia(
@@ -76,17 +84,44 @@ public class Escenario {
         tuberias.add(tuberiaInf);
     }
     
-    public void moveTube(){
+    public void moveTube() {
         
     }
-
-    public void applyGravity() {
+    
+    private boolean isColision() {          //ELIMINAR EL PRIMER IF ESTA PUESTO PORQUE NO HAY TUBERIAS
+        boolean response = false;
+        if (!this.tuberias.isEmpty()) {
+            if (this.pajaro.pos.getY() + 1 > this.tuberias.get(0).getLimInfIzq().getY()     //tuberia de arriba en pos pares y cero
+                    && this.pajaro.pos.getY() + 1 > this.tuberias.get(1).getLimSupIzq().getY()) {
+                response = true;
+            } else {
+//                if (this.scores.getCliks() < 10) {
+//                    this.scores.setScore(15);
+//                } else {
+//                    this.scores.setScore(20);
+//                }
+                
+            }
+        }
         
-//        double x = this.pajaro.pos.getX();
+        return response;
+    }
 
-       this.pajaro.pos.setY( this.pajaro.pos.getY() + 1 );
-       
-
+    /**
+     * Método que modifica la posición del personaje simulando la gravedad
+     * siempre y cuando la posición a la que se vaya a mover el pajaro sea mayor
+     * al limite sup de la tuberia
+     */
+    public boolean applyGravity() {
+        boolean response = false;
+        if (!isColision()) {
+            this.pajaro.pos.setY(this.pajaro.pos.getY() + 1);
+            response = true;
+        } else {
+            this.pajaro.pos.setX(this.pajaro.pos.getX() + 1000);        //se hace desaparecer el pajaro en caso de colision
+            this.pajaro.pos.setY(this.pajaro.pos.getY() + 1000);
+        }
+        return response;
     }
     
 }

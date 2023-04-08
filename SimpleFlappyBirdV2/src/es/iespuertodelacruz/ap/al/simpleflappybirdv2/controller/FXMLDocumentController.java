@@ -13,6 +13,7 @@ import java.net.URL;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
 import javafx.animation.AnimationTimer;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -45,6 +46,7 @@ public class FXMLDocumentController implements Initializable {
     private Escenario escenario;
 
     private AnimationTimer miBucle;
+    private boolean isActive;
 
     private Partida scores;
 
@@ -54,32 +56,40 @@ public class FXMLDocumentController implements Initializable {
     int contador;
     int aux;
 
+    /***
+     * Método que inicia el bucle del juego,
+     * inicializa el escenario y la partida
+     */
     @FXML
     public void startGame() {
+        this.isActive = true;
         this.scores = new Partida();
         this.gc = canva.getGraphicsContext2D();
-        escenario = new Escenario(posXPajaro, posYPajaro);
+        escenario = new Escenario(posXPajaro, posYPajaro, scores);
         miBucle = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                moverJuego();
-
+                boolean moverJuego = moverJuego();
+                if (!moverJuego) {
+                    miBucle.stop();
+                }
             }
         };
         miBucle.start();
 
     }
 
-    private void moverJuego() {
-        //imprimo el pajaro
-
+    /***
+     * Método que obtiene el pajaro y lo pinta
+     * por otro lado llama a la función applyGravity
+     * 
+     */
+    private boolean moverJuego() {
         Personaje pajaro = escenario.getPajaro();
         Punto posPajaro = pajaro.getPos();
 
         gc.clearRect(posPajaro.getX(), posPajaro.getY(), escenario.getRadioPers(), escenario.getRadioPers());
-        gc.setFill(Color.YELLOW);
 
-        gc.fillOval(posPajaro.getX(), posPajaro.getY(), escenario.getRadioPers(), escenario.getRadioPers());
 
 
         escenario.applyGravity();
@@ -113,18 +123,34 @@ public class FXMLDocumentController implements Initializable {
 
         
         pintarTubo();
+
+        gc.setFill(pajaro.getColor());
+        gc.fillOval(posPajaro.getX(), posPajaro.getY(), escenario.getRadioPers(), escenario.getRadioPers());
+
+        return escenario.applyGravity();
     }
 
+    /***
+     * Método que modifica la posición Y del pájaro 
+     * para simular un efecto de vuelo
+     */
     @FXML
     private void jump() {
-        updateScores();
-        Personaje pajaro = escenario.getPajaro();
-        Punto posPajaro = pajaro.getPos();
-        gc.clearRect(posPajaro.getX(), posPajaro.getY(), escenario.getRadioPers(), escenario.getRadioPers());
-        escenario.getPajaro().jump();
+        if (this.isActive) {
+            updateScores();
+            Personaje pajaro = escenario.getPajaro();
+            Punto posPajaro = pajaro.getPos();
+            gc.clearRect(posPajaro.getX(), posPajaro.getY(), escenario.getRadioPers(), escenario.getRadioPers());
+            escenario.getPajaro().jump();
+        } else {
+            System.out.println("JUEGO PAUSADO");
+        }
 
     }
-
+    
+    /***
+     * Método que actualiza las puntuaciones del usuario
+     */
     private void updateScores() {
         int cliks = this.scores.getCliks();
         this.txtCliks.setText("" + cliks);
@@ -174,6 +200,23 @@ public class FXMLDocumentController implements Initializable {
             
             aux++;
         }
+    }
+
+    /***
+     * Método que para el juego
+     */
+    @FXML
+    private void stopGame() {
+        if (miBucle != null) {
+            if (isActive) {
+                miBucle.stop();
+                isActive = false;
+            } else {
+                miBucle.start();
+                isActive = true;
+            }
+        }
+
     }
 
 }

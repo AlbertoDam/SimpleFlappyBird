@@ -13,10 +13,18 @@ public class Partida {
     private double score;
     
     
+    /***
+     * Constructor de Partida
+     */
     public Partida(){
         this.cliks = 1;
         this.score = 0;
     }
+    
+    /***
+     * Método que actualiza los cliks 
+     * que ha dado el usuario
+     */
     public void updateClick(){
         this.cliks++;
     }
@@ -26,16 +34,12 @@ public class Partida {
     }
 
     public void setScore(double score) {
-        this.score = score;
+        this.score += score;
     }
     
 
     public int getCliks() {
         return cliks;
-    }
-
-    public void setCliks(int cliks) {
-        this.cliks = cliks;
     }
     
     
