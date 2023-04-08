@@ -56,6 +56,7 @@ public class FXMLDocumentController implements Initializable {
     int contador;
     int aux;
     private int veloc;
+    private Tuberia tuberia;
 
     /***
      * Método que inicia el bucle del juego,
@@ -122,10 +123,30 @@ public class FXMLDocumentController implements Initializable {
             aux++;
         }
         
-        if(tuberias.size()>=10){
-            tuberias.remove();
-            tuberias.remove();
-            this.scores.updateScore();
+        if(tuberias.size()<=2){
+            if(tuberias.get(0).getLimSupDer().getX()>pajaro.getPos().getX()){
+                for (int i = 0; i == 2; i++) {
+                    tuberia = tuberias.get(i);
+                    if(aux%2==0){
+                        gc.clearRect(
+                                tuberia.getLimInfIzq().getX(), 
+                                0, 
+                                50,
+                                tuberia.getLimSupIzq().getY()
+                        );
+                    }else{
+                        gc.clearRect(
+                                tuberia.getLimInfIzq().getX(), 
+                                tuberia.getLimSupIzq().getY(), 
+                                50,
+                                //tuberia.getLimSupIzq().getY()
+                                this.canva.getHeight()  
+                        );
+                    }
+                    tuberias.remove();
+                }
+                this.scores.updateScore();
+            }
         }
         
         pintarTubo(); 
