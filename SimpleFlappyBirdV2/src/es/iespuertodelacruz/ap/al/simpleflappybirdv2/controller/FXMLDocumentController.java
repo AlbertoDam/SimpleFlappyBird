@@ -89,10 +89,8 @@ public class FXMLDocumentController implements Initializable {
         Punto posPajaro = pajaro.getPos();
 
         gc.clearRect(posPajaro.getX(), posPajaro.getY(), escenario.getRadioPers(), escenario.getRadioPers());
-
-
-
         escenario.applyGravity();
+        
         LinkedList<Tuberia> tuberias = escenario.getTuberias();
         if(tuberias==null || contador==45){
             escenario.spawnTube(this.canva.getHeight(), this.canva.getWidth());
@@ -115,7 +113,7 @@ public class FXMLDocumentController implements Initializable {
                         tuberia.getLimSupIzq().getY(), 
                         50,
                         //tuberia.getLimSupIzq().getY()
-                        this.canva.getHeight()
+                        this.canva.getHeight()  
                 );
             }
             aux++;
@@ -127,7 +125,7 @@ public class FXMLDocumentController implements Initializable {
             this.scores.updateScore();
         }
         
-        pintarTubo();
+        pintarTubo(); 
 
         gc.setFill(pajaro.getColor());
         gc.fillOval(posPajaro.getX(), posPajaro.getY(), escenario.getRadioPers(), escenario.getRadioPers());

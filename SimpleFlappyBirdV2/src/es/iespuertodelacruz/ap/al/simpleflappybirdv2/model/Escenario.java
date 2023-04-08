@@ -123,13 +123,13 @@ public class Escenario {
      */
     public boolean applyGravity() {
         boolean response = false;
-        if (!isColision()) {
-            this.pajaro.pos.setY(this.pajaro.pos.getY() + 1);
+//        if (!isColision()) {
+            this.pajaro.pos.setY(this.pajaro.pos.getY() + 0.5);
             response = true;
-        } else {
-            this.pajaro.pos.setX(this.pajaro.pos.getX() + 1000);        //se hace desaparecer el pajaro en caso de colision
-            this.pajaro.pos.setY(this.pajaro.pos.getY() + 1000);
-        }
+//        } else {
+//            this.pajaro.pos.setX(this.pajaro.pos.getX() + 1000);        //se hace desaparecer el pajaro en caso de colision
+//            this.pajaro.pos.setY(this.pajaro.pos.getY() + 1000);
+//        }
         return response;
     }
     
