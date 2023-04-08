@@ -50,11 +50,12 @@ public class FXMLDocumentController implements Initializable {
 
     private Partida scores;
 
-    private final double posXPajaro = 0;
+    private final double posXPajaro = 70;
     private final double posYPajaro = 90.00;
     
     int contador;
     int aux;
+    private int veloc;
 
     /***
      * Método que inicia el bucle del juego,
@@ -62,6 +63,7 @@ public class FXMLDocumentController implements Initializable {
      */
     @FXML
     public void startGame() {
+        this.veloc = 0;
         this.isActive = true;
         this.scores = new Partida();
         this.gc = canva.getGraphicsContext2D();
@@ -98,7 +100,8 @@ public class FXMLDocumentController implements Initializable {
 
         }
         
-        contador++;
+        if (this.veloc %4 == 0) {
+            contador++;
         for (Tuberia tuberia : tuberias) {
             if(aux%2==0){
                 gc.clearRect(
@@ -126,6 +129,10 @@ public class FXMLDocumentController implements Initializable {
         }
         
         pintarTubo(); 
+        
+        this.veloc++;
+        }
+        this.veloc++;
 
         gc.setFill(pajaro.getColor());
         gc.fillOval(posPajaro.getX(), posPajaro.getY(), escenario.getRadioPers(), escenario.getRadioPers());
@@ -187,7 +194,7 @@ public class FXMLDocumentController implements Initializable {
         //gc.fillRect(600,300,60,150);
         
         for (Tuberia tuberia : tuberias) {
-            tuberia.res(4);
+            tuberia.res(9);
             gc.setFill(Color.GREEN);
             if(aux%2==0){
                 gc.fillRect(
