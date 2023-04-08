@@ -61,10 +61,8 @@ public class Personaje {
 
     public void jump() {
         
-        this.pos.setY(this.pos.getY() - 50);
-        this.pos.setY(this.pos.getY() + 5);
-        this.pos.setY(this.pos.getY() + 2.5);
-        this.pos.setY(this.pos.getY() + 2.5);
+        this.pos.setY(this.pos.getY() - 55);
+        
 
     }
 }
