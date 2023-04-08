@@ -11,6 +11,7 @@ package es.iespuertodelacruz.ap.al.simpleflappybirdv2.model;
 public class Partida {
     private int cliks;
     private double score;
+    private long cont;
     
     
     /***
@@ -33,14 +34,14 @@ public class Partida {
         return score;
     }
 
-    public void setScore(double score) {
-        this.score += score;
+    public void updateScore(){
+        double sum = 1 * (cont*0.1);
+        this.score += sum;
     }
     
 
     public int getCliks() {
         return cliks;
     }
-    
     
 }

@@ -57,6 +57,8 @@ public class Tuberia {
     public void res(double valor){
         this.limInfIzq.sumar(valor);
         this.limInfDer.sumar(valor);
+        this.limSupDer.sumar(valor);
+        this.limSupIzq.sumar(valor);
     }
     
 }

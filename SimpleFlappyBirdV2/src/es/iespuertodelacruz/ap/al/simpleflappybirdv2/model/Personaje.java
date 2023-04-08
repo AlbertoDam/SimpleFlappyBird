@@ -61,7 +61,9 @@ public class Personaje {
 
     public void jump() {
         
+
         this.pos.setY(this.pos.getY() - 60);
+
         
 
     }
