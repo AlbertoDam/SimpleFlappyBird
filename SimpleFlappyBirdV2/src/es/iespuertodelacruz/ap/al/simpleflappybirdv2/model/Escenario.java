@@ -88,22 +88,27 @@ public class Escenario {
         
     }
     
-    private boolean isColision() {          //ELIMINAR EL PRIMER IF ESTA PUESTO PORQUE NO HAY TUBERIAS
+    public boolean isColision() {
         boolean response = false;
-        if (!this.tuberias.isEmpty()) {
-            if (this.pajaro.pos.getY() + 1 > this.tuberias.get(0).getLimInfIzq().getY()     //tuberia de arriba en pos pares y cero
-                    && this.pajaro.pos.getY() + 1 > this.tuberias.get(1).getLimSupIzq().getY()) {
-                response = true;
-            } else {
-//                if (this.scores.getCliks() < 10) {
-//                    this.scores.setScore(15);
-//                } else {
-//                    this.scores.setScore(20);
-//                }
-                
-            }
-        }
+        int counter = 0;
         
+        for (Tuberia tuberia : tuberias) {
+            if((this.pajaro.getPos().getX()+this.radioPers)==tuberia.getLimSupIzq().getX()){
+                response = true;
+            }else{
+                if(counter%2==0){
+                    if((this.pajaro.getPos().getY()+this.radioPers)>=tuberia.getLimSupIzq().getY()){
+                        response = true;
+                    }
+                }else{
+                    if((this.pajaro.getPos().getY()+this.radioPers)<=tuberia.getLimSupIzq().getY()){
+                        response = true;
+                    }
+                }                
+            }
+            
+            counter++;
+        }
         return response;
     }
 

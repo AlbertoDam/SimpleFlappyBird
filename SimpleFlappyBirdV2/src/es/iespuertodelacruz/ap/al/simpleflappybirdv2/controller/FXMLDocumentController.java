@@ -127,6 +127,10 @@ public class FXMLDocumentController implements Initializable {
         gc.setFill(pajaro.getColor());
         gc.fillOval(posPajaro.getX(), posPajaro.getY(), escenario.getRadioPers(), escenario.getRadioPers());
 
+        if(this.escenario.isColision()==true){
+            stopGame();
+        }
+        
         return escenario.applyGravity();
     }
 
