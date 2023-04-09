@@ -37,7 +37,7 @@ public class Escenario {
     public int getRadioPers() {
         return radioPers;
     }
-    
+
     public Personaje getPajaro() {
         return this.pajaro;
     }
@@ -45,7 +45,7 @@ public class Escenario {
     public LinkedList<Tuberia> getTuberias() {
         return tuberias;
     }
-    
+
     public void spawnTube(double alto, double ancho) {
         int width = 30;
         /*
@@ -53,17 +53,16 @@ public class Escenario {
         
         
             X=ancho,y=rnd()*100+(alto/5)       X=ancho+30,y=rnd()*100+(alto/5)
-        */
-        
-        double y = Math.random()*100+(alto/5); // calculo altura de 0 a (alto/3)
+         */
+
+        double y = Math.random() * 100 + (alto / 5); // calculo altura de 0 a (alto/3)
         Tuberia tuberiaSup = new Tuberia(
                 new Punto(ancho, y),
-                new Punto(ancho+width,y),
-                new Punto(ancho,0),
-                new Punto(ancho+width,0)
-
+                new Punto(ancho + width, y),
+                new Punto(ancho, 0),
+                new Punto(ancho + width, 0)
         );
-        
+
         tuberias.add(tuberiaSup);
         /*
             X=ancho,y= y + 79     X=ancho+width,y= y + 79 
@@ -72,47 +71,55 @@ public class Escenario {
             X=ancho,y=alto        X=ancho+width,y=alto
         
 
-        */
-        y += 79;
+         */
+        y += 160;
         Tuberia tuberiaInf = new Tuberia(
                 new Punto(ancho, y),
-                new Punto(ancho+width,y),
-                new Punto(ancho,alto),
-                new Punto(ancho+width,alto)
+                new Punto(ancho + width, y),
+                new Punto(ancho, alto),
+                new Punto(ancho + width, alto)
         );
-        
+
         tuberias.add(tuberiaInf);
     }
-    
+
     public void moveTube() {
-        
+
     }
-    
+
     public boolean isColision() {
         boolean response = false;
+        if (this.tuberias.size() >= 2) {
+            double birdRadius = this.getRadioPers();
+            double birdX = this.pajaro.getPos().getX() + birdRadius;
+            double birdY = this.pajaro.getPos().getY() + birdRadius;
+            for (int i = 0; i < this.tuberias.size(); i++) {
+                Tuberia tuberia = this.tuberias.get(i);
+                double inferX1 = tuberia.getLimSupIzq().getX() + 0.45;
+                double inferX2 = tuberia.getLimSupDer().getX() - 0.45;
+                double inferY1 = tuberia.getLimSupIzq().getY() + 0.45;
+                double inferY2 = tuberia.getLimInfIzq().getY() + birdRadius;
+                double supX1 = tuberia.getLimInfIzq().getX() - 0.45;
+                double supX2 = tuberia.getLimInfDer().getX() + 0.45;
+                double supY1 = tuberia.getLimSupDer().getY() + birdRadius;
+                double supY2 = tuberia.getLimInfDer().getY() + 0.45;
 
-        if(this.tuberias.size()>=2){
-
-            Tuberia sup = this.tuberias.get(0);
-            Tuberia inf = this.tuberias.get(1);
-
-            if(((this.pajaro.getPos().getX()+this.radioPers)>sup.getLimSupIzq().getX()) 
-                    && 
-                    (this.pajaro.getPos().getX()+this.radioPers)<sup.getLimSupDer().getX()){
-                
-                if((this.pajaro.getPos().getY()+this.radioPers)>=sup.getLimSupIzq().getY()){
+                if (birdX + birdRadius > inferX1 && birdX - birdRadius < inferX2 && birdY + birdRadius > inferY1 && birdY - birdRadius < inferY2) {
                     response = true;
-
-                }else if((this.pajaro.getPos().getY()+this.radioPers)<=inf.getLimSupIzq().getY()){
-                    response = true;
-
-                }else{
-                    response = false;
-
+                    System.out.println("HAY COLISION CON TUBERIA DE ABAJO");
+                    break;
                 }
+
+                this.scores.updateScore(0.01);
+
+                if (birdX > supX1 && birdX < supX2 && birdY > inferY2 && birdY < supY1) {
+                    response = true;
+                    System.out.println("HAY COLISION ARRIBA");
+                    break;
+                }
+
             }
         }
-        
         return response;
     }
 
@@ -124,13 +131,13 @@ public class Escenario {
     public boolean applyGravity() {
         boolean response = false;
 //        if (!isColision()) {
-            this.pajaro.pos.setY(this.pajaro.pos.getY() + 0.5);
-            response = true;
+        this.pajaro.pos.setY(this.pajaro.pos.getY() + 0.5);
+        response = true;
 //        } else {
 //            this.pajaro.pos.setX(this.pajaro.pos.getX() + 1000);        //se hace desaparecer el pajaro en caso de colision
 //            this.pajaro.pos.setY(this.pajaro.pos.getY() + 1000);
 //        }
         return response;
     }
-    
+
 }

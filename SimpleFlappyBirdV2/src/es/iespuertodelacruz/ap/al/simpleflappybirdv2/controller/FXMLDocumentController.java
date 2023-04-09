@@ -13,7 +13,6 @@ import java.net.URL;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
 import javafx.animation.AnimationTimer;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -47,6 +46,7 @@ public class FXMLDocumentController implements Initializable {
 
     private AnimationTimer miBucle;
     private boolean isActive;
+    
 
     private Partida scores;
 
@@ -72,9 +72,13 @@ public class FXMLDocumentController implements Initializable {
         miBucle = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                boolean moverJuego = moverJuego();
+                boolean moverJuego = false;
+                if (isActive) {
+                    moverJuego = moverJuego();
+                }
                 if (!moverJuego) {
                     miBucle.stop();
+
                 }
             }
         };
@@ -88,6 +92,8 @@ public class FXMLDocumentController implements Initializable {
      * 
      */
     private boolean moverJuego() {
+        double score = this.scores.getScore();
+        this.txtScore.setText("Puntuacion: "+ (int)(score) );
         Personaje pajaro = escenario.getPajaro();
         Punto posPajaro = pajaro.getPos();
 
@@ -95,7 +101,7 @@ public class FXMLDocumentController implements Initializable {
         escenario.applyGravity();
         
         LinkedList<Tuberia> tuberias = escenario.getTuberias();
-        if(tuberias==null || contador==45){
+        if(tuberias.isEmpty() || contador==45){
             escenario.spawnTube(this.canva.getHeight(), this.canva.getWidth());
             contador = 0;
 
@@ -123,7 +129,7 @@ public class FXMLDocumentController implements Initializable {
             aux++;
         }
         
-        if(tuberias.size()<=2){
+        if(!tuberias.isEmpty()){
             if(tuberias.get(0).getLimSupDer().getX()>pajaro.getPos().getX()){
                 for (int i = 0; i == 2; i++) {
                     tuberia = tuberias.get(i);
@@ -145,7 +151,7 @@ public class FXMLDocumentController implements Initializable {
                     }
                     tuberias.remove();
                 }
-                this.scores.updateScore();
+                
             }
         }
         
@@ -191,8 +197,7 @@ public class FXMLDocumentController implements Initializable {
         this.txtCliks.setText("" + cliks);
         this.scores.updateClick();
 
-        double score = this.scores.getScore();
-        this.txtScore.setText("Puntuación: en desarrollo..." + score);
+        
     }
 
     /**

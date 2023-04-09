@@ -34,7 +34,7 @@ public class Partida {
         return score;
     }
 
-    public void updateScore(){
+    public void updateScore(double cont){
         double sum = 1 * (cont*0.1);
         this.score += sum;
     }
